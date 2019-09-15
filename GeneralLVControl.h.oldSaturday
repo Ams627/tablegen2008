@@ -1,0 +1,127 @@
+#pragma once
+#define WM_DUMMY WM_APP + 100
+
+
+class MyHeaderCtrl : public CWindowImpl<MyHeaderCtrl, CHeaderCtrl>
+{
+    BEGIN_MSG_MAP(MyHeaderCtrl)
+//        MSG_WM_MOUSEMOVE(OnMouseMove)
+//        MSG_WM_SETCURSOR(OnSetCursor)
+         MSG_WM_LBUTTONDOWN(OnLButtonDown)
+    END_MSG_MAP()
+
+    LRESULT OnMouseMove(UINT, CPoint)
+    {
+        SetMsgHandled(TRUE);
+        return 0;
+    }
+    LRESULT OnSetCursor(HWND, UINT, UINT)
+    {
+        CPoint point;
+        GetCursorPos(&point);
+        ScreenToClient(&point);
+        HDHITTESTINFO hdHitTest;
+        hdHitTest.pt = point;
+        LRESULT lResult = SendMessage(HDM_HITTEST, 0, reinterpret_cast<LPARAM>(&hdHitTest));
+        
+        if (hdHitTest.flags == HHT_ONDIVIDER) // || hdHitTest.flags == HHT_ONDIVOPEN)
+        {
+            HCURSOR weCursor = LoadCursor(NULL, IDC_SIZEWE);
+            HCURSOR oldCursor = SetCursor(weCursor);
+        }
+        else
+        {
+            HCURSOR arrowCursor = LoadCursor(NULL, IDC_ARROW);
+            HCURSOR oldCursor = SetCursor(arrowCursor);
+        }
+        SetMsgHandled(TRUE);
+
+        return 0;
+    }
+    LRESULT OnLButtonDown(UINT nFlags, CPoint point)
+    {
+        HDHITTESTINFO hdHitTest;
+        hdHitTest.pt = point;
+        LRESULT lResult = SendMessage(HDM_HITTEST, 0, reinterpret_cast<LPARAM>(&hdHitTest));
+
+        if (hdHitTest.flags == HHT_ONDIVOPEN)
+        {
+            while (hdHitTest.flags == HHT_ONDIVOPEN) 
+            {
+                OUTPUT(hdHitTest.pt.x);
+                OUTPUT(hdHitTest.pt.y);
+                OUTPUT(hdHitTest.iItem);
+                hdHitTest.pt.x--;
+                LRESULT lResult = SendMessage(HDM_HITTEST, 0, reinterpret_cast<LPARAM>(&hdHitTest));
+            }
+            OutputDebugStr("No longer on DIV OPEN\n");
+
+            int currentItem = hdHitTest.iItem;
+
+            while (hdHitTest.iItem == currentItem) 
+            {
+                OUTPUT(hdHitTest.pt.x);
+                OUTPUT(hdHitTest.pt.y);
+                OUTPUT(hdHitTest.iItem);
+                hdHitTest.pt.x--;
+                LRESULT lResult = SendMessage(HDM_HITTEST, 0, reinterpret_cast<LPARAM>(&hdHitTest));
+            }
+
+            SetMsgHandled(TRUE);
+            //ReleaseCapture();
+            CPoint cursorpos(hdHitTest.pt.x, hdHitTest.pt.y);
+            ClientToScreen(&cursorpos);
+            //SetCursorPos(cursorpos.x, cursorpos.y);
+            PostMessage(WM_LBUTTONUP, 0, MAKELPARAM(hdHitTest.pt.x, hdHitTest.pt.y));
+            PostMessage(WM_LBUTTONDOWN, 0, MAKELPARAM(hdHitTest.pt.x, hdHitTest.pt.y));
+        }
+        else
+        {
+            hdHitTest = hdHitTest;
+            OutputDebugStr("Normal OnLButtonDown\n");
+            OUTPUT(hdHitTest.pt.x);
+            OUTPUT(hdHitTest.pt.y);
+            SetMsgHandled(FALSE);
+        }
+        return 0;
+    }
+};
+
+class GeneralLVControl : public CWindowImpl<GeneralLVControl, CListViewCtrl>
+{
+    std::string widthFilename_;
+    int numberOfCols_;
+    CMenu rightClickMenu_;
+    MyHeaderCtrl headerCtrl_;
+    bool tracking_;
+
+    BEGIN_MSG_MAP(GeneralLVControl)
+//        MSG_WM_NOTIFY(OnNotify)
+//         NOTIFY_CODE_HANDLER_EX(HDN_ENDTRACKA, OnEndTrack)
+//         NOTIFY_CODE_HANDLER_EX(HDN_ENDTRACKW, OnEndTrack)
+//         NOTIFY_CODE_HANDLER_EX(HDN_BEGINTRACKA, OnBeginTrack)
+//         NOTIFY_CODE_HANDLER_EX(HDN_BEGINTRACKW, OnBeginTrack)
+//         NOTIFY_CODE_HANDLER_EX(HDN_ENDDRAG, OnEndDrag)
+//         NOTIFY_CODE_HANDLER_EX(HDN_ITEMCHANGINGW, OnItemChanging)
+//         NOTIFY_CODE_HANDLER_EX(HDN_ITEMCHANGINGA, OnItemChanging)
+//         MESSAGE_HANDLER_EX(WM_DUMMY, OnDummyMessage)
+//         MSG_WM_CONTEXTMENU(OnContextMenu)
+//         MSG_WM_COMMAND(OnCommand);
+//         MSG_WM_MOUSEMOVE(OnMouseMove);
+    END_MSG_MAP();
+
+    GeneralLVControl() : tracking_(false){}
+    void OnContextMenu(HWND, CPoint);
+    LRESULT OnBeginTrack(NMHDR* pNMHDR);
+    LRESULT OnEndTrack(NMHDR* pNMHDR); // a divider got dragged thus a column now has a new width
+    LRESULT OnEndDrag(NMHDR* pNMHDR);  // a column got dragged into a new position
+    LRESULT OnNotify(int, LPNMHDR);
+    LRESULT OnItemChanged(NMHDR* pNMHDR);
+    LRESULT OnItemChanging(NMHDR* pNMHDR);
+    void WriteWidthFile();
+    void ReadWidthFile();
+    void Init(std::string filename);
+    LRESULT OnDummyMessage(UINT msg, WPARAM wParam, LPARAM lParam);
+    LRESULT OnCommand(UINT, int, HWND);
+    LRESULT OnMouseMove(UINT, CPoint);
+};

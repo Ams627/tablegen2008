@@ -1,0 +1,96 @@
+sz = 30;
+times = new Array(414,416,418,419,421,423,425,426,428,430,432,433,435,437,439,440,442,444,445,
+447,449,450,452,453,455,456,458,459,461,462,992,991,989,987,985,984,982,981,
+979,977,976,974,973,972,970,969,968,966,965,964,963,962,961,960,959,958,957,
+956,956,955,1116,1170,1235,1306,1380,1455,15,92,169,249,333,422,515,605,683,
+742,781,808,827,841,853,865,876,890,905,926,954,992,1041,1102,714,766,806,835,
+857,873,887,899,911,923,938,957,984,1024,1082,1158,1245,1333,1419,1500,60,138,
+214,290,366,442,516,583,640,684);
+types = new Array("sr", "ss", "mr", "ms");
+function mouseover(ev)
+{
+    elem = document.getElementById('fred');
+    var posx=ev.clientX + document.
+    body.scrollLeft + 5;
+    var posy=ev.clientY + document.body.scrollTop + 5;
+    elem.style.visibility='visible';
+    elem.style.left = posx + 'px';
+    elem.style.top = posy + 'px';
+
+    //
+    var n = parseInt(this.id.substr(1));
+    n = n - 1;
+    sr = GetHM(times[n]);
+    ss = GetHM(times[n + sz]);
+    mr = GetHM(times[n + sz + sz]);
+    ms = GetHM(times[n + sz + sz + sz]);
+    html = "<table class='floattable'>" +
+           "<tr><td class='ftd'>sunrise:</td><td class='ftd'>" + sr + "</td></tr>" +
+           "<tr><td class='ftd'>sunset:</td><td class='ftd'>" + ss + "</td></tr>" +
+           "<tr><td class='ftd'>moonrise:</td><td class='ftd'>" + mr + "</td></tr>" +
+           "<tr><td class='ftd'>moonset:</td><td class='ftd'>" + ms + "</td></tr>" +
+           "</table>";
+    elem.innerHTML = html;
+
+}
+function mousemove(ev)
+{
+    elem = document.getElementById('fred');
+    var posx=ev.clientX + document.body.scrollLeft + 5;
+    var posy=ev.clientY + document.body.scrollTop + 5;
+    elem.style.left = posx + 'px';
+    elem.style.top = posy + 'px';
+}
+function mouseout()
+{
+    elem = document.getElementById('fred');
+    elem.style.visibility='hidden';
+}
+
+function GetHM(mins)
+{
+    h = parseInt(mins / 60);
+    m = mins % 60;
+    res = ""
+    if (h < 10)
+    {
+        res = "0";
+    }
+    res += h;
+    res += ":";
+    if (m < 10)
+    {
+        res += "0";
+    }
+    res += m;
+    return res;
+}
+
+function bonk()
+{
+   var n = parseInt(this.id.substr(1));
+   sr = GetHM(times[n]);
+   ss = GetHM(times[n + sz]);
+   mr = GetHM(times[n + sz + sz]);
+   ms = GetHM(times[n + sz + sz + sz]);
+
+//   sr = h.toFixed(2) + ":" + (times[n] % 60);
+   alert("sr: " + sr + "ss: " + ss + "mr: " + mr + "ms:" + ms);
+}
+
+function func()
+{
+    for (var i = 0; i < 31; i++)
+    {
+        var name = "k" + i;
+
+        var elem = document.getElementById(name);
+        if (elem)
+        {
+            elem.onmouseover=mouseover;
+            elem.onmouseout=mouseout;
+            elem.onmousemove=mousemove;
+        }
+    }
+}
+

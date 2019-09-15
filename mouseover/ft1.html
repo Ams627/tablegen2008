@@ -1,0 +1,41 @@
+<html>
+<head>
+<title></title>
+<style>
+table {border-collapse:collapse;}
+.invis {
+position:absolute;
+left:100;
+top:100;
+font-size:50px;
+font-family:"comic sans ms";
+visibility:hidden;
+}
+.ft {
+   border:solid 1px black;
+   font-size:50px;
+}
+
+.ftd {
+   border:solid 1px black;
+}
+
+</style>
+<script>
+function func()
+{
+    html="<table class='ft'><tr><td class='ftd'>a</td><td>b</td></tr></table>";
+    elem = document.getElementById('fred');
+    if (elem)
+    {
+        elem.innerHTML=html;
+        elem.style.visibility = 'visible';
+    }
+}
+</script>
+</head>
+<body onload='func()'></body>
+<div id='fred' class='invis'>
+
+</div>
+</html>

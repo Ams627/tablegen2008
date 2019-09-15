@@ -1,0 +1,232 @@
+#include "stdafx.h"
+#include <math.h>
+#include <iomanip>
+#include <string>
+#include "MonthCalGen.h"
+#include "ADate.h"
+#include "sun.h"
+#include "moon.h"
+
+CMonthCalGen::CMonthCalGen()
+{
+
+}
+
+CMonthCalGen::CMonthCalGen(int month, int year)
+{
+    m_month = month;
+    m_year = year;
+    CADate date(1, month, year);
+    std::string filename = date.GetShortMonthName();
+    filename += ".html";
+    m_file.open(filename.c_str());
+}
+
+CMonthCalGen::~CMonthCalGen()
+{
+
+}
+
+using namespace std;
+
+bool CMonthCalGen::Generate()
+{
+    PrintHeader();
+    CADate date(1, m_month, m_year);
+
+    m_file << "<body>" << endl;
+    for (int m = 0; m < 12; m++)
+    {
+        CADate tdate(1, m + 1, m_year);
+        m_file << "<a href='" << tdate.GetShortMonthName() << ".html'>" << tdate.GetShortMonthName() << "</a>" << endl;
+    }
+
+    m_file << "<table border=1>" << endl;
+    m_file << "<th colspan=7>" << endl;
+
+    m_file << date.GetShortMonthName() << " " << date.GetYear() << endl;
+
+    m_file << "</th>" << endl;
+    m_file << "<tr>" << endl;
+    m_file << "<td class=dayheader>Monday </td>" << endl;
+    m_file << "<td class=dayheader>Tuesday </td>" << endl;
+    m_file << "<td class=dayheader>Wednesday </td>" << endl;
+    m_file << "<td class=dayheader>Thursday </td>" << endl;
+    m_file << "<td class=dayheader>Friday </td>" << endl;
+    m_file << "<td class=dayheader>Saturday </td>" << endl;
+    m_file << "<td class=dayheader>Sunday </td>" << endl;
+    m_file << "</tr>" << endl;
+
+    // "round" date to previous monday:
+    date.SetPrevious(0);
+
+    for (int row = 0; row < 6 && ((date.GetMonth() <= m_month) || (m_month == 1 && date.GetMonth() == 12)); row++)
+    {
+        m_file << "<tr>";
+
+        for (int col = 0; col < 7; col++)
+        {
+
+            if (date.GetMonth() == m_month)
+            {
+                m_file << "<td><div class='dayno'>" << date.GetDay() << "</div>" << endl;
+
+                // Get Sunrise and sunset times:
+                double rise, set, moonrise, moonset;
+                SunRise(rise, set, 51.5, 0.0, date);
+                MoonRise(moonrise, moonset, 51.5, 0.0, date);
+
+                if (date.IsInEUDST())
+                {
+                    rise += 1.0 / 24.0;
+                    set += 1.0 / 24.0;
+                    moonrise += 1.0 / 24.0;
+                    moonset += 1.0 / 24.0;
+                    if (rise > 1.0)
+                    {
+                        rise -= 1.0;
+                    }
+                    if (set > 1.0)
+                    {
+                        set -= 1.0;
+                    }
+                    if (moonrise > 1.0)
+                    {
+                        moonrise -= 1.0;
+                    }
+                    if (moonset > 1.0)
+                    {
+                        moonset -= 1.0;
+                    }
+                }
+                
+
+                m_file << "<div class='srss'>";
+                m_file << "sr:<br>ss:<br>mr:<br>ms:<br></div>\n";
+                m_file << "<div class='srss2'>";
+                PrintHoursMins(m_file, rise);
+                m_file <<  "<br>";
+                PrintHoursMins(m_file, set);
+                m_file << "<br>";
+                PrintHoursMins(m_file, moonrise);
+                m_file << "<br>";
+                PrintHoursMins(m_file, moonset);
+                m_file << "<br></div>\n</td>\n";
+            }
+            else
+            {
+                m_file << "<td style='background-color:#FFFFFF'>&nbsp</td>" << endl;
+            }
+            date++;
+        }
+        m_file << "</tr>" << endl;
+    }
+
+    m_file << "</table>" << endl;
+
+    return true;
+}
+
+void CMonthCalGen::PrintHeader()
+{
+    m_file << "<head><style>" << endl;
+    m_file << "table {" << endl;
+    m_file << "border-collapse:collapse;" << endl;
+    m_file << "font-family:arial, helvetica;" << endl;
+    m_file << "font-size:14pt;" << endl;
+    m_file << "}" << endl;
+    m_file << "td {" << endl;
+    m_file << "font-size:20;" << endl;
+    m_file << "width: 140px;" << endl;
+    m_file << "padding-left: 5px;" << endl;
+    m_file << "padding-bottom: 10px;" << endl;
+    m_file << "padding-top:2px;" << endl;
+    m_file << "padding-right: 10px;" << endl;
+    m_file << "vertical-align:top;" << endl;
+    m_file << "background-color: #C6FCFE;" << endl;
+    m_file << "}" << endl;
+    m_file << ".summer {background-color: #F7F67F;}" << endl;
+    m_file << "th {" << endl;
+    m_file << "font-size: 20;" << endl;
+    m_file << "font-family:arial, helvetica;" << endl;
+    m_file << "}" << endl;
+    m_file << ".dayheader {" << endl;
+    m_file << "font-size:20;" << endl;
+    m_file << "padding-bottom: 10px;" << endl;
+    m_file << "background-color: #eeeeff;" << endl;
+    m_file << "}" << endl;
+
+	m_file << ".dayno {" << endl;
+	m_file << "position:relative;" << endl;
+	m_file << "left:0;" << endl;
+	m_file << "top:0;" << endl;
+	m_file << "width:0px;" << endl;
+	m_file << "font-size: 8pt;" << endl;
+	m_file << "padding-right: 0pt;" << endl;
+	m_file << "text-align:right;" << endl;
+	m_file << "font-family: times;" << endl;
+	m_file << "}" << endl;
+
+	m_file << ".srss {" << endl;
+	m_file << "position:relative;" << endl;
+	m_file << "left:50;" << endl;
+	m_file << "top:0;" << endl;
+	m_file << "width:0px;" << endl;
+	m_file << "font-size: 8pt;" << endl;
+	m_file << "padding-right: 0pt;" << endl;
+	m_file << "text-align:right;" << endl;
+	m_file << "font-family: times;" << endl;
+	m_file << "}" << endl;
+
+	m_file << ".srss2 {" << endl;
+	m_file << "position:relative;" << endl;
+	m_file << "left:100;" << endl;
+	m_file << "top:0;" << endl;
+	m_file << "width:0px;" << endl;
+	m_file << "font-size: 8pt;" << endl;
+	m_file << "padding-right: 0pt;" << endl;
+	m_file << "text-align:right;" << endl;
+	m_file << "font-family: times;" << endl;
+	m_file << "}" << endl;
+    m_file << "</style></head>" << endl;
+}
+
+
+void CMonthCalGen::PrintHoursMins(std::ofstream& f, double event)
+{
+    // event represents a fraction of a day and is thus
+    // in the range 0 - 1;
+
+    int secs = int(floor(86400.0 * event + 0.5));
+    int mins = (secs + 30) / 60;
+    int hours = mins / 60;
+    mins %= 60;
+
+    f << setfill('0') << setw(2) << hours << ":" << setw(2) << mins;
+}
+
+
+// print an opening td tag with class=summer if we are in summer time
+// also add the name of another specified class cl
+void CMonthCalGen::PrintTD(CADate date, std::string cl)
+{
+    string classname = cl;
+    if (date.IsInEUDST())
+    {
+        if (!classname.empty())
+        {
+            classname += " ";
+        }
+        classname = classname + "summer";
+    }
+
+    m_file << "<td";
+    if (classname.empty())
+    {
+        m_file << ">" << endl;
+    }
+    else
+    {
+        m_file << " class=\"" << classname << "\">" << endl;
+    }
+}

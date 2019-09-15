@@ -1,0 +1,26 @@
+<head>
+<title>t1 test</title>
+<script>
+function func2()
+{
+    alert("wonk");
+}
+
+function func()
+{
+    var elem = document.getElementById('k1');
+    
+    if (elem)
+    {
+        elem.onmouseover = func2;
+    };
+
+}
+</script>
+</head>
+<body onload=func()>
+hello
+<div id='k1' border=1>
+world
+</div>
+

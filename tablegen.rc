@@ -1,0 +1,327 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TABLEGEN DIALOGEX 0, 0, 291, 215
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "HTML Calendar Generator"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Sun rise/set",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,33,51,10
+    CONTROL         "Moon rise/set",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,46,55,10
+    CONTROL         "Geocentric Planetary positions",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,72,104,10
+    CONTROL         "Moon Phase Table",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,59,71,10
+    EDITTEXT        IDC_EDITSTART,48,86,47,13,ES_AUTOHSCROLL
+    CONTROL         "Year Calendar",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,20,51,10
+    LTEXT           "Start Year",IDC_STATIC,7,87,35,11
+    EDITTEXT        IDC_EDITEND,153,85,47,13,ES_AUTOHSCROLL
+    LTEXT           "End Year",IDC_STATIC,112,86,35,11
+    LTEXT           "Output Folder",IDC_STATIC,7,110,41,8
+    LTEXT           "c:\\blah\\blah",IDC_STATIC,54,110,41,8
+    PUSHBUTTON      "...",IDC_BROWSE,95,110,16,8
+    GROUPBOX        "Output file naming",IDC_STATIC,7,129,268,57
+    CONTROL         "Month calendars",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,7,64,10
+    CONTROL         "Year first then table name",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,13,141,89,10
+    CONTROL         "Table name first then year",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,13,154,91,10
+    CONTROL         "Use subfolders for year or table",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,169,106,10
+    PUSHBUTTON      "Generate",IDC_GENERATE,129,194,32,14
+END
+
+IDD_OPTIONFRAME DIALOGEX 0, 0, 356, 285
+STYLE DS_LOCALEDIT | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Preferences"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,169,264,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,299,264,50,14
+    CONTROL         "",IDC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_NOSCROLL | WS_BORDER | WS_TABSTOP,7,7,83,271
+END
+
+IDD_TESTDIALOG DIALOGEX 0, 0, 188, 96
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Test Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,131,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,131,24,50,14
+    LTEXT           "Bolox",IDC_STATIC,47,43,68,14
+END
+
+IDD_GENERALOPTIONS DIALOGEX 0, 0, 284, 267
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Tables to Generate",IDC_STATIC,7,7,270,59
+    CONTROL         "Year Planner",IDC_CHECKYEARPLANNER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,32,78,13
+    CONTROL         "Year Calendar",IDC_CHECKYEARCALENDAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,19,78,13
+    CONTROL         "Month Calendar",IDC_CHECKMONTHCALENDAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,45,78,13
+    CONTROL         "Sun and Moon Tables",IDC_CHECKSUNMOON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,19,78,13
+    CONTROL         "Planetary Tables",IDC_CHECKPLANETS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,32,78,13
+    GROUPBOX        "Years to output",IDC_STATIC,7,81,270,66
+    CONTROL         "Generate XML as well as HTML",IDC_CHECKGENERATEXML,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,124,202,12
+    EDITTEXT        IDC_EDITENDYEAR,60,107,61,13,ES_AUTOHSCROLL
+    LTEXT           "End Year",IDC_STATIC,19,109,38,8
+    EDITTEXT        IDC_EDITSTARTYEAR,60,93,61,13,ES_AUTOHSCROLL
+    LTEXT           "Start Year",IDC_STATIC,19,96,37,8
+    GROUPBOX        "Output file naming",IDC_STATIC,7,171,270,89
+    EDITTEXT        IDC_OUTPUTFOLDER,72,181,141,13,ES_AUTOHSCROLL
+    LTEXT           "Output folder",IDC_STATIC,15,183,54,11
+    CONTROL         "Year first then table name",IDC_RADIOYEARFIRST,"Button",BS_AUTORADIOBUTTON | WS_GROUP,15,197,117,11
+    CONTROL         "Table name first then year",IDC_RADIOTABLEFIRST,"Button",BS_AUTORADIOBUTTON,15,209,118,11
+    CONTROL         "Use subfolders",IDC_CHECKUSESUBFOLDERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,223,98,9
+    LTEXT           "Example",IDC_STATIC,15,239,253,12
+END
+
+IDD_PLACEOPTIONS DIALOGEX 0, 0, 261, 147
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CAPTION | WS_SYSMENU
+CAPTION "Your location"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMBO1,16,32,96,87,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Choose a place",IDC_STATIC,7,7,219,93
+    PUSHBUTTON      "Add New Place...",IDC_BUTTON1,16,59,71,15
+END
+
+IDD_ARSEOPTIONS DIALOGEX 0, 0, 255, 239
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,16,16,38,10
+    LTEXT           "Slider Test",IDC_STATICFORSLIDER1,15,31,70,14
+    LTEXT           "Slider Test",IDC_STATICFORSLIDER2,15,80,70,14
+END
+
+IDD_YEARCALOPTIONS DIALOGEX 0, 0, 188, 96
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,131,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,131,24,50,14
+END
+
+IDD_MONTHCALOPTIONS DIALOGEX 0, 0, 293, 298
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,14,108,11
+    GROUPBOX        "Background Colour",IDC_STATIC,7,7,279,40
+    CONTROL         "",IDC_SLIDER2,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,24,108,11
+    CONTROL         "",IDC_SLIDER3,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,34,108,11
+    LTEXT           "Red",IDC_STATIC,117,15,13,8
+    LTEXT           "Green",IDC_STATIC,117,25,20,8
+    LTEXT           "Blue",IDC_STATIC,117,35,14,8
+    CONTROL         "",IDC_SLIDER4,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,62,108,11
+    GROUPBOX        "Text Colour",IDC_STATIC,7,55,279,40
+    CONTROL         "",IDC_SLIDER5,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,72,108,11
+    CONTROL         "",IDC_SLIDER6,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,82,108,11
+    LTEXT           "Red",IDC_STATIC,117,63,13,8
+    LTEXT           "Green",IDC_STATIC,117,73,20,8
+    LTEXT           "Blue",IDC_STATIC,117,83,14,8
+    CONTROL         "",IDC_SLIDER7,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,107,108,11
+    GROUPBOX        "Day Name Colour",IDC_STATIC,7,100,279,40
+    CONTROL         "",IDC_SLIDER8,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,117,108,11
+    CONTROL         "",IDC_SLIDER9,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,127,108,11
+    LTEXT           "Red",IDC_STATIC,117,108,13,8
+    LTEXT           "Green",IDC_STATIC,117,118,20,8
+    LTEXT           "Blue",IDC_STATIC,117,128,14,8
+    CONTROL         "",IDC_SLIDER10,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,155,108,11
+    GROUPBOX        "Week Number Colour",IDC_STATIC,7,148,279,40
+    CONTROL         "",IDC_SLIDER11,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,165,108,11
+    CONTROL         "",IDC_SLIDER12,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,175,108,11
+    LTEXT           "Red",IDC_STATIC,117,156,13,8
+    LTEXT           "Green",IDC_STATIC,117,166,20,8
+    LTEXT           "Blue",IDC_STATIC,117,176,14,8
+    CONTROL         "",IDC_SLIDER13,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,202,108,11
+    GROUPBOX        "Summer Colour",IDC_STATIC,7,197,279,40
+    CONTROL         "",IDC_SLIDER14,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,212,108,11
+    CONTROL         "",IDC_SLIDER15,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,222,108,11
+    LTEXT           "Red",IDC_STATIC,117,203,13,8
+    LTEXT           "Green",IDC_STATIC,117,213,20,8
+    LTEXT           "Blue",IDC_STATIC,117,223,14,8
+    CONTROL         "",IDC_SLIDER16,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,245,108,11
+    GROUPBOX        "Winter Colour",IDC_STATIC,7,241,279,40
+    CONTROL         "",IDC_SLIDER17,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,256,108,11
+    CONTROL         "",IDC_SLIDER18,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,7,266,108,11
+    LTEXT           "Red",IDC_STATIC,117,247,13,8
+    LTEXT           "Green",IDC_STATIC,117,257,20,8
+    LTEXT           "Blue",IDC_STATIC,117,267,14,8
+END
+
+IDD_BIRTHDAY DIALOGEX 0, 0, 188, 162
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_BIRTHDAYS,"SysListView32",LVS_ALIGNLEFT | LVS_OWNERDATA | WS_BORDER | WS_TABSTOP,7,7,174,95
+    EDITTEXT        IDC_EDITBIRTHDAYYEAR,33,109,36,12,ES_AUTOHSCROLL
+    LTEXT           "Year",IDC_STATIC,7,110,21,9
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 188, 96
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,131,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,131,24,50,14
+    EDITTEXT        IDC_EDIT1,23,21,69,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_TABLEGEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 284
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 208
+    END
+
+    IDD_OPTIONFRAME, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 349
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 278
+    END
+
+    IDD_TESTDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 89
+    END
+
+    IDD_GENERALOPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 277
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 260
+    END
+
+    IDD_PLACEOPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 254
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 140
+    END
+
+    IDD_ARSEOPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 248
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_YEARCALOPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 89
+    END
+
+    IDD_MONTHCALOPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 286
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 291
+    END
+
+    IDD_BIRTHDAY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 155
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 89
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

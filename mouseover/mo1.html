@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title></title>
+<style type="text/css">
+td {font-size:20pt;font-family:arial;}
+td {border-collapse:collapse;}
+.invisible {
+position:absolute;
+left:300;
+top:300;
+width:100;
+height:50;
+visibility:hidden;
+font-size:20pt;
+border:solid 1px;
+background:#EAF5AF;
+}
+</style>
+<script type="text/javascript">
+times=new Array(77, 88, 99);
+
+function mouseover(ev)
+{
+    elem = document.getElementById('fred');
+    var posx=ev.clientX + document.body.scrollLeft + 5;
+    var posy=ev.clientY + document.body.scrollTop + 5;
+    elem.style.visibility='visible';
+    elem.style.left = posx + 'px';
+    elem.style.top = posy + 'px';
+}
+function mousemove(ev)
+{
+
+    elem = document.getElementById('fred');
+    var posx=ev.clientX + document.body.scrollLeft + 5;
+    var posy=ev.clientY + document.body.scrollTop + 5;
+    elem.style.left = posx + 'px';
+    elem.style.top = posy + 'px';
+    todaysdate = new Date();
+    index = todaysdate.getDate();
+    index += 1;
+    index %= 3;
+    aelem = times[index];
+
+    window.status = "posx: " + posx + "   posy: " + posy + " " + aelem;
+    elem.innerHTML = aelem;
+}
+function mouseout()
+{
+    elem = document.getElementById('fred');
+    elem.style.visibility='hidden';
+}
+</script>
+</head>
+<body>
+<div class='invisible' id='fred'>float</div>
+<table border=1>
+<tr>
+<td onMouseOver='mouseover(event)' onMouseOut='mouseout()' onMouseMove='mousemove(event)'>
+clit<br>dum-di-dum<br>toodle tum
+</td>
+</tr>
+</table>
+</body>
+
+
